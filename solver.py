@@ -196,6 +196,7 @@ class Solver(object):
         return fixed_c_list
 
     def train(self):
+        """Train StarGAN within a single dataset."""
 
         # Set dataloader
         if self.dataset == 'CelebA':
@@ -241,7 +242,7 @@ class Solver(object):
         start_time = time.time()
         for e in range(start, self.num_epochs):
             for i, (real_x, real_label) in enumerate(self.data_loader):
-
+                
                 # Generat fake labels randomly (target domain labels)
                 rand_idx = torch.randperm(real_label.size(0))
                 fake_label = real_label[rand_idx]
@@ -276,6 +277,10 @@ class Solver(object):
                 if (i+1) % self.log_step == 0:
                     accuracies = self.compute_accuracy(out_cls, real_label, self.dataset)
                     log = ["{:.2f}".format(acc) for acc in accuracies.data.cpu().numpy()]
+                    if self.dataset == 'CelebA':
+                        print('Classification Acc (Black/Blond/Brown/Gender/Aged): ', end='')
+                    else:
+                        print('Classification Acc (8 emotional expressions): ', end='')
                     print(log)
 
                 # Compute loss with fake images
@@ -322,7 +327,7 @@ class Solver(object):
                 # ================== Train G ================== #
                 if (i+1) % self.d_train_repeat == 0:
 
-                    # Original-to-target and Target-to-original domain
+                    # Original-to-target and target-to-original domain
                     fake_x = self.G(real_x, fake_c)
                     rec_x = self.G(fake_x, real_c)
 
@@ -392,15 +397,6 @@ class Solver(object):
         """Train StarGAN with multiple datasets.
         In the code below, 1 is related to CelebA and 2 is releated to RaFD.
         """
-        fixed_x2 = []
-        for i, (images, labels) in enumerate(self.rafd_loader):
-            fixed_x2.append(images)
-            if i == 2:
-                break
-
-        fixed_x2 = torch.cat(fixed_x2, dim=0)
-        fixed_x2 = self.to_var(fixed_x2, volatile=True)
-
         # Fixed imagse and labels for debugging
         fixed_x = []
         real_c = []
@@ -509,9 +505,11 @@ class Solver(object):
             if (i+1) % self.log_step == 0:
                 accuracies = self.compute_accuracy(out_cls1, real_label1, 'CelebA')
                 log = ["{:.2f}".format(acc) for acc in accuracies.data.cpu().numpy()]
+                print('Classification Acc (Black/Blond/Brown/Gender/Aged): ', end='')
                 print(log)
                 accuracies = self.compute_accuracy(out_cls2, real_label2, 'RaFD')
                 log = ["{:.2f}".format(acc) for acc in accuracies.data.cpu().numpy()]
+                print('Classification Acc (8 emotional expressions): ', end='')
                 print(log)
 
             # Fake images (CelebA)
@@ -637,7 +635,7 @@ class Solver(object):
                 for j in range(self.c_dim):
                     fake_c = torch.cat([fixed_c1_list[j], fixed_zero1, fixed_mask1], dim=1)
                     fake_image_list.append(self.G(fixed_x, fake_c))
-                # Chaning emotional expressions
+                # Changing emotional expressions
                 for j in range(self.c2_dim):
                     fake_c = torch.cat([fixed_zero2, fixed_c2_list[j], fixed_mask2], dim=1)
                     fake_image_list.append(self.G(fixed_x, fake_c))
@@ -663,20 +661,73 @@ class Solver(object):
                 print ('Decay learning rate to g_lr: {}, d_lr: {}.'.format(g_lr, d_lr))
 
     def test(self):
+        """Facial attribute transfer on CelebA or facial expression synthesis on RaFD."""
         # Load trained parameters
         G_path = os.path.join(self.model_save_path, '{}_G.pth'.format(self.test_model))
         self.G.load_state_dict(torch.load(G_path))
         self.G.eval()
 
-        for i, (real_x, real_c) in enumerate(self.data_loader):
+        if self.dataset == 'CelebA':
+            data_loader = self.celebA_loader
+        else:
+            data_loader = self.rafd_loader
+
+        for i, (real_x, org_c) in enumerate(data_loader):
             real_x = self.to_var(real_x, volatile=True)
-            target_c_list = self.make_celeb_labels(real_c)
+
+            if self.dataset == 'CelebA':
+                target_c_list = self.make_celeb_labels(org_c)
+            else:
+                target_c_list = []
+                for j in range(self.c_dim):
+                    target_c = self.one_hot(torch.ones(real_x.size(0)) * j, self.c_dim)
+                    target_c_list.append(self.to_var(target_c, volatile=True))
 
             # Start translations
             fake_image_list = [real_x]
             for target_c in target_c_list:
                 fake_image_list.append(self.G(real_x, target_c))
             fake_images = torch.cat(fake_image_list, dim=3)
-            save_image(self.denorm(fake_images.data),
-                os.path.join(self.sample_path, '{}_fake.png'.format(i+1)),nrow=1, padding=0)
-            print('Translated test images and saved into {}..!'.format(self.result_path))
+            save_path = os.path.join(self.result_path, '{}_fake.png'.format(i+1))
+            save_image(self.denorm(fake_images.data), save_path, nrow=1, padding=0)
+            print('Translated test images and saved into "{}"..!'.format(save_path))
+
+    def test_multi(self):
+        """Facial attribute transfer and expression synthesis on CelebA."""
+        # Load trained parameters
+        G_path = os.path.join(self.model_save_path, '{}_G.pth'.format(self.test_model))
+        self.G.load_state_dict(torch.load(G_path))
+        self.G.eval()
+
+        for i, (real_x, org_c) in enumerate(self.celebA_loader):
+
+            # Prepare input images and target domain labels
+            real_x = self.to_var(real_x, volatile=True)
+            target_c1_list = self.make_celeb_labels(org_c)
+            target_c2_list = []
+            for j in range(self.c2_dim):
+                target_c = self.one_hot(torch.ones(real_x.size(0)) * j, self.c2_dim)
+                target_c2_list.append(self.to_var(target_c, volatile=True))
+
+            # Zero vectors and mask vectors
+            zero1 = self.to_var(torch.zeros(real_x.size(0), self.c2_dim))     # zero vector for rafd expressions
+            mask1 = self.to_var(self.one_hot(torch.zeros(real_x.size(0)), 2)) # mask vector: [1, 0]
+            zero2 = self.to_var(torch.zeros(real_x.size(0), self.c_dim))      # zero vector for celebA attributes
+            mask2 = self.to_var(self.one_hot(torch.ones(real_x.size(0)), 2))  # mask vector: [0, 1]
+
+            # Changing hair color, gender, and age
+            fake_image_list = [real_x]
+            for j in range(self.c_dim):
+                target_c = torch.cat([target_c1_list[j], zero1, mask1], dim=1)
+                fake_image_list.append(self.G(real_x, target_c))
+
+            # Changing emotional expressions
+            for j in range(self.c2_dim):
+                target_c = torch.cat([zero2, target_c2_list[j], mask2], dim=1)
+                fake_image_list.append(self.G(real_x, target_c))
+            fake_images = torch.cat(fake_image_list, dim=3)
+
+            # Save the translated images
+            save_path = os.path.join(self.result_path, '{}_fake.png'.format(i+1))
+            save_image(self.denorm(fake_images.data), save_path, nrow=1, padding=0)
+            print('Translated test images and saved into "{}"..!'.format(save_path))
