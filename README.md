@@ -102,7 +102,7 @@ $ python main.py --mode='test' --dataset='Both' --c_dim=5 --c2_dim=8 --image_siz
 
 ## Citation
 ```bash
-@article{choi2017unified,
+@article{choi2017stargan,
  title = {StarGAN: Unified Generative Adversarial Networks for Multi-Domain Image-to-Image Translation},    
  author = {Choi, Yunjey and Choi, Minje and Kim, Munyoung and Ha, Jung-Woo and Kim, Sunghun and Choo, Jaegul},
  journal= {arXiv preprint arXiv:1711.09020},
