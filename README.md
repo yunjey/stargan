@@ -41,7 +41,7 @@ Overview of StarGAN when training with both CelebA and RaFD. <b>(a) ~ (d)</b> sh
 &nbsp;
 
 ## Prerequisites
-* [Python 2.7 or 3.5+](https://www.continuum.io/downloads)
+* [Python 3.5+](https://www.continuum.io/downloads)
 * [PyTorch 0.2.0](http://pytorch.org/)
 * [TensorFlow 1.3+](https://www.tensorflow.org/) (optional for tensorboard)
 
