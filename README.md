@@ -115,6 +115,7 @@ $ python main.py --mode='test' --dataset='Both' --image_size=256 --test_model='2
 &nbsp;
 
 ## Citation
+If this work is useful for your research, please cite our [arXiv paper](https://arxiv.org/abs/1711.09020).
 ```
 @article{choi2017stargan,
  title = {StarGAN: Unified Generative Adversarial Networks for Multi-Domain Image-to-Image Translation},    
