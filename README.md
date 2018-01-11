@@ -41,18 +41,29 @@ Overview of StarGAN when training with both CelebA and RaFD. <b>(a) ~ (d)</b> sh
 &nbsp;
 
 ## Prerequisites
-* [Python 3.5+](https://www.continuum.io/downloads)
-* [PyTorch 0.2.0](http://pytorch.org/)
-* [TensorFlow 1.3+](https://www.tensorflow.org/) (optional for tensorboard)
+* [Anaconda 5.0.1](https://www.continuum.io/downloads)
 
 &nbsp;
 
 ## Getting Started
 
-#### 1. Clone the repository
+#### 1. Setup the environment
+To avoid errors later, it's best to update all the packages in the default environment. In the prompt, run the following commands:
+```bash
+$ conda upgrade conda 
+$ conda upgrade --all
+```
+
+Once done, clone the repository and create the environment (This include Python 3.5.4, [PyTorch 0.3](http://pytorch.org/) and [TensorFlow 1.3](https://www.tensorflow.org/)):
 ```bash
 $ git clone https://github.com/yunjey/StarGAN.git
 $ cd StarGAN/
+$ conda env create -f stargan-env.yaml 
+```
+
+To activate the environment, use:
+```bash
+$ conda activate stargan-env
 ```
 
 #### 2. Download the dataset

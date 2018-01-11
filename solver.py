@@ -134,8 +134,8 @@ class Solver(object):
 
     def threshold(self, x):
         x = x.clone()
-        x[x >= 0.5] = 1
-        x[x < 0.5] = 0
+        x = (x >= 0.5).float()
+        x = (x < 0.5).float()
         return x
 
     def compute_accuracy(self, x, y, dataset):

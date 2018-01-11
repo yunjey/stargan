@@ -1,0 +1,53 @@
+name: stargan
+channels:
+  - pytorch
+  - defaults
+dependencies:
+  - backports=1.0=py35hd471ac7_1
+  - backports.weakref=1.0rc1=py35_0
+  - bleach=1.5.0=py35_0
+  - ca-certificates=2017.08.26=h1d4fec5_0
+  - certifi=2017.11.5=py35h9749603_0
+  - cffi=1.11.2=py35hc7b2db7_0
+  - cudatoolkit=8.0=3
+  - freetype=2.8=hab7d2ae_1
+  - html5lib=0.9999999=py35_0
+  - intel-openmp=2018.0.0=hc7b2577_8
+  - jpeg=9b=h024ee3a_2
+  - libedit=3.1=heed3624_0
+  - libffi=3.2.1=hd88cf55_4
+  - libgcc-ng=7.2.0=h7cc24e2_2
+  - libgfortran-ng=7.2.0=h9f7466a_2
+  - libpng=1.6.32=hbd3595f_4
+  - libprotobuf=3.4.1=h5b8497f_0
+  - libstdcxx-ng=7.2.0=h7a57d05_2
+  - libtiff=4.0.9=h28f6b97_0
+  - markdown=2.6.9=py35_0
+  - mkl=2018.0.1=h19d6760_4
+  - ncurses=6.0=h9df7e31_2
+  - numpy=1.14.0=py35h3dfced4_0
+  - olefile=0.44=py35h2c86149_0
+  - openssl=1.0.2n=hb7f436b_0
+  - pillow=5.0.0=py35h3deb7b8_0
+  - pip=9.0.1=py35h7e7da9d_4
+  - protobuf=3.4.1=py35he6b9134_0
+  - pycparser=2.18=py35h61b3040_1
+  - python=3.5.4=h417fded_24
+  - readline=7.0=ha6073c6_4
+  - setuptools=36.5.0=py35ha8c1747_0
+  - six=1.11.0=py35h423b573_1
+  - sqlite=3.20.1=hb898158_2
+  - tensorflow=1.3.0=0
+  - tensorflow-base=1.3.0=py35h79a3156_1
+  - tensorflow-tensorboard=0.1.5=py35_0
+  - tk=8.6.7=hc745277_3
+  - werkzeug=0.12.2=py35hbfc1ea6_0
+  - wheel=0.30.0=py35hd3883cf_1
+  - xz=5.2.3=h55aa19d_2
+  - zlib=1.2.11=ha838bed_2
+  - pytorch=0.3.0=py35_cuda8.0.61_cudnn7.0.3hb362f6e_4
+  - torchvision=0.2.0=py35heaa392f_1
+  - pip:
+    - torch==0.3.0.post4
+prefix: /home/alberto/anaconda3/envs/stargan
+
