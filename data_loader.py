@@ -19,6 +19,7 @@ class CelebDataset(Dataset):
         self.idx2attr = {}
 
         print ('Start preprocessing dataset..!')
+        random.seed(1234)
         self.preprocess()
         print ('Finished preprocessing dataset..!')
 
@@ -84,14 +85,14 @@ def get_loader(image_path, metadata_path, crop_size, image_size, batch_size, dat
     if mode == 'train':
         transform = transforms.Compose([
             transforms.CenterCrop(crop_size),
-            transforms.Scale(image_size),
+            transforms.Resize(image_size, interpolation=Image.ANTIALIAS),
             transforms.RandomHorizontalFlip(),
             transforms.ToTensor(),
             transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
     else:
         transform = transforms.Compose([
             transforms.CenterCrop(crop_size),
-            transforms.Scale(image_size),
+            transforms.Scale(image_size, interpolation=Image.ANTIALIAS),
             transforms.ToTensor(),
             transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
 
