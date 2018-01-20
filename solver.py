@@ -374,7 +374,7 @@ class Solver(object):
                     for fixed_c in fixed_c_list:
                         fake_image_list.append(self.G(fixed_x, fixed_c))
                     fake_images = torch.cat(fake_image_list, dim=3)
-                    save_image(self.denorm(fake_images.data),
+                    save_image(self.denorm(fake_images.data.cpu()),
                         os.path.join(self.sample_path, '{}_{}_fake.png'.format(e+1, i+1)),nrow=1, padding=0)
                     print('Translated images and saved into {}..!'.format(self.sample_path))
 
@@ -641,7 +641,7 @@ class Solver(object):
                 fake = torch.cat(fake_image_list, dim=3)
 
                 # Save the translated images
-                save_image(self.denorm(fake.data),
+                save_image(self.denorm(fake.data.cpu()),
                     os.path.join(self.sample_path, '{}_fake.png'.format(i+1)), nrow=1, padding=0)
 
             # Save model checkpoints
