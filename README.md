@@ -1,14 +1,14 @@
 <p align="center"><img width="40%" src="png/logo.png" /></p>
 
 --------------------------------------------------------------------------------
-PyTorch implementation of [StarGAN: Unified Generative Adversarial Networks for Multi-Domain Image-to-Image Translation](https://arxiv.org/abs/1711.09020). StarGAN can flexibly translate an input image to any desired target domain using only a single generator and a discriminator. The demo video for StarGAN can be found [here](https://www.youtube.com/watch?v=EYjdLppmERE).
+This repository provides a PyTorch implementation of [StarGAN: Unified Generative Adversarial Networks for Multi-Domain Image-to-Image Translation](https://arxiv.org/abs/1711.09020). StarGAN can flexibly translate an input image to any desired target domain using only a single generator and a discriminator. The demo video for StarGAN can be found [here](https://www.youtube.com/watch?v=EYjdLppmERE).
 
 <p align="center"><img width="100%" src="png/main.png" /></p>
 
 ## Authors
 
 [Yunjey Choi](https://github.com/yunjey), [Minje Choi](https://github.com/mjc92), [Munyoung Kim](https://www.facebook.com/munyoung.kim.1291), [Jung-Woo Ha](https://www.facebook.com/jungwoo.ha.921), [Sung Kim](https://www.cse.ust.hk/~hunkim/), and [Jaegul Choo](https://sites.google.com/site/jaegulchoo/)    
-Korea Universitiy, Clova AI Research (NAVER), The College of New Jersey, HKUST  
+Korea Universitiy, Clova AI Research (NAVER), The College of New Jersey, HKUST
 &nbsp;
 
 
