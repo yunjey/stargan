@@ -9,6 +9,7 @@ This repository provides a PyTorch implementation of [StarGAN: Unified Generativ
 
 [Yunjey Choi](https://github.com/yunjey), [Minje Choi](https://github.com/mjc92), [Munyoung Kim](https://www.facebook.com/munyoung.kim.1291), [Jung-Woo Ha](https://www.facebook.com/jungwoo.ha.921), [Sung Kim](https://www.cse.ust.hk/~hunkim/), and [Jaegul Choo](https://sites.google.com/site/jaegulchoo/)    
 Korea Universitiy, Clova AI Research (NAVER), The College of New Jersey, HKUST
+
 &nbsp;
 
 
