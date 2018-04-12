@@ -43,35 +43,35 @@ To download the RaFD dataset, you must request access to the dataset from [the R
 To train StarGAN on CelebA, run the training script below. See [here](https://github.com/yunjey/StarGAN/blob/master/jpg/CelebA.md) for a list of selectable attributes in the CelebA dataset. If you change the `selected_attrs` argument, you should also change the `c_dim` argument accordingly.
 
 ```bash
-$ python main.py --mode='train' --dataset='CelebA' --image_size=128 --c_dim=5 \
-                 --sample_dir='expr_celeba/samples' --log_dir='expr_celeba/logs' \
-                 --model_save_dir='expr_celeba/models' --result_dir='expr_celeba/results' \
-                 --selected_attrs=['Black_Hair', 'Blond_Hair', 'Brown_Hair', 'Male', 'Young']
+$ python main.py --mode train --dataset CelebA --image_size 128 --c_dim 5 \
+                 --sample_dir expr_celeba/samples --log_dir expr_celeba/logs \
+                 --model_save_dir expr_celeba/models --result_dir expr_celeba/results \
+                 --selected_attrs Black_Hair Blond_Hair Brown_Hair Male Young
 ```
 
 To train StarGAN on RaFD:
 
 ```bash
-$ python main.py --mode='train' --dataset='RaFD' --image_size=128 --c_dim=8 \
-                 --sample_dir='expr_rafd/samples' --log_dir='expr_rafd/logs' \
-                 --model_save_dir='expr_rafd/models' --result_dir='expr_rafd/results'
+$ python main.py --mode train --dataset RaFD --image_size 128 --c_dim 8 \
+                 --sample_dir expr_rafd/samples --log_dir expr_rafd/logs \
+                 --model_save_dir expr_rafd/models' --result_dir expr_rafd/results
 ```
 
 To train StarGAN on both CelebA and RafD:
 
 ```bash
-$ python main.py --mode='train' --dataset='Both' --image_size=256 --c_dim=5 --c2_dim=8 \
-                 --sample_dir='expr_both/samples' --log_dir='expr_both/logs' \
-                 --model_save_dir='expr_both/models' --result_dir='expr_both/results'
+$ python main.py --mode=train --dataset Both --image_size 256 --c_dim 5 --c2_dim 8 \
+                 --sample_dir expr_both/samples --log_dir expr_both/logs \
+                 --model_save_dir expr_both/models --result_dir expr_both/results
 ```
 
 To train StarGAN on your own dataset, create a folder structure in the same format as [RaFD](https://github.com/yunjey/StarGAN/blob/master/jpg/RaFD.md) and run the command:
 
 ```bash
-$ python main.py --mode='train' --dataset='RaFD' --rafd_crop_size=CROP_SIZE --image_size=IMG_SIZE
-                 --c_dim=LABEL_DIM --rafd_image_dir=TRAIN_IMG_DIR \
-                 --sample_dir='expr_custom/samples' --log_dir='expr_custom/logs' \
-                 --model_save_dir='expr_custom/models' --result_dir='expr_custom/results'
+$ python main.py --mode train --dataset RaFD --rafd_crop_size CROP_SIZE --image_size IMG_SIZE
+                 --c_dim LABEL_DIM --rafd_image_dir TRAIN_IMG_DIR \
+                 --sample_dir expr_custom/samples --log_dir expr_custom/logs \
+                 --model_save_dir expr_custom/models --result_dir expr_custom/results
 ```
 
 
@@ -80,36 +80,36 @@ $ python main.py --mode='train' --dataset='RaFD' --rafd_crop_size=CROP_SIZE --im
 To test StarGAN on CelebA:
 
 ```bash
-$ python main.py --mode='test' --dataset='CelebA' --image_size=128 --c_dim=5 \
-                 --sample_dir='expr_celeba/samples' --log_dir='expr_celeba/logs' \
-                 --model_save_dir='expr_celeba/models' --result_dir='expr_celeba/results' \
-                 --selected_attrs=['Black_Hair', 'Blond_Hair', 'Brown_Hair', 'Male', 'Young']
+$ python main.py --mode test --dataset CelebA --image_size 128 --c_dim 5 \
+                 --sample_dir expr_celeba/samples --log_dir expr_celeba/logs \
+                 --model_save_dir expr_celeba/models --result_dir expr_celeba/results \
+                 --selected_attrs Black_Hair Blond_Hair Brown_Hair Male Young
 ```
 
 To test StarGAN on RaFD:
 
 ```bash
-$ python main.py --mode='test' --dataset='RaFD' --image_size=128 \
-                 --c_dim=8 --rafd_image_dir='data/RaFD/test' \
-                 --sample_dir='expr_rafd/samples' --log_dir='expr_rafd/logs' \
-                 --model_save_dir='expr_rafd/models' --result_dir='expr_rafd/results'
+$ python main.py --mode test --dataset RaFD --image_size 128 \
+                 --c_dim 8 --rafd_image_dir data/RaFD/test \
+                 --sample_dir expr_rafd/samples --log_dir expr_rafd/logs \
+                 --model_save_dir expr_rafd/models --result_dir expr_rafd/results
 ```
 
 To test StarGAN on both CelebA and RaFD:
 
 ```bash
-$ python main.py --mode='test' --dataset='Both' --image_size=256 --c_dim=5 --c2_dim=8 \
-                 --sample_dir='expr_both/samples' --log_dir='expr_both/logs' \
-                 --model_save_dir='expr_both/models' --result_dir='expr_both/results'
+$ python main.py --mode test --dataset Both --image_size 256 --c_dim 5 --c2_dim 8 \
+                 --sample_dir expr_both/samples --log_dir expr_both/logs \
+                 --model_save_dir expr_both/models --result_dir expr_both/results
 ```
 
 To test StarGAN on your own dataset:
 
 ```bash
-$ python main.py --mode='test' --dataset='RaFD' --rafd_crop_size=CROP_SIZE --image_size=IMG_SIZE
-                 --c_dim=LABEL_DIM --rafd_image_dir=TEST_IMG_DIR \
-                 --sample_dir='expr_custom/samples' --log_dir='expr_custom/logs' \
-                 --model_save_dir='expr_custom/models' --result_dir='expr_custom/results'
+$ python main.py --mode test --dataset RaFD --rafd_crop_size CROP_SIZE --image_size IMG_SIZE
+                 --c_dim LABEL_DIM --rafd_image_dir TEST_IMG_DIR \
+                 --sample_dir expr_custom/samples --log_dir expr_custom/logs \
+                 --model_save_dir expr_custom/models --result_dir expr_custom/results
 ```
 
 <br/>
