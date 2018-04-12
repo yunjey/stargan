@@ -1,111 +1,92 @@
+from torch.utils import data
+from torchvision import transforms as T
+from torchvision.datasets import ImageFolder
+from PIL import Image
 import torch
 import os
 import random
-from torch.utils.data import Dataset
-from torch.utils.data import DataLoader
-from torchvision import transforms
-from torchvision.datasets import ImageFolder
-from PIL import Image
 
 
-class CelebDataset(Dataset):
-    def __init__(self, image_path, metadata_path, transform, mode):
-        self.image_path = image_path
+class CelebA(data.Dataset):
+    """Dataset class for the CelebA dataset."""
+
+    def __init__(self, image_dir, attr_path, selected_attrs, transform, mode):
+        """Initialize and preprocess the CelebA dataset."""
+        self.image_dir = image_dir
+        self.attr_path = attr_path
+        self.selected_attrs = selected_attrs
         self.transform = transform
         self.mode = mode
-        self.lines = open(metadata_path, 'r').readlines()
-        self.num_data = int(self.lines[0])
+        self.train_dataset = []
+        self.test_dataset = []
         self.attr2idx = {}
         self.idx2attr = {}
-
-        print ('Start preprocessing dataset..!')
-        random.seed(1234)
         self.preprocess()
-        print ('Finished preprocessing dataset..!')
 
-        if self.mode == 'train':
-            self.num_data = len(self.train_filenames)
-        elif self.mode == 'test':
-            self.num_data = len(self.test_filenames)
+        if mode == 'train':
+            self.num_images = len(self.train_dataset)
+        else:
+            self.num_images = len(self.test_dataset)
 
     def preprocess(self):
-        attrs = self.lines[1].split()
-        for i, attr in enumerate(attrs):
-            self.attr2idx[attr] = i
-            self.idx2attr[i] = attr
+        """Preprocess the CelebA attribute file."""
+        lines = [line.rstrip() for line in open(self.attr_path, 'r')]
+        all_attr_names = lines[1].split()
+        for i, attr_name in enumerate(all_attr_names):
+            self.attr2idx[attr_name] = i
+            self.idx2attr[i] = attr_name
 
-        self.selected_attrs = ['Black_Hair', 'Blond_Hair', 'Brown_Hair', 'Male', 'Young']
-        self.train_filenames = []
-        self.train_labels = []
-        self.test_filenames = []
-        self.test_labels = []
-
-        lines = self.lines[2:]
-        random.shuffle(lines)   # random shuffling
+        lines = lines[2:]
+        random.seed(1234)
+        random.shuffle(lines)
         for i, line in enumerate(lines):
-
-            splits = line.split()
-            filename = splits[0]
-            values = splits[1:]
+            split = line.split()
+            filename = split[0]
+            values = split[1:]
 
             label = []
-            for idx, value in enumerate(values):
-                attr = self.idx2attr[idx]
-
-                if attr in self.selected_attrs:
-                    if value == '1':
-                        label.append(1)
-                    else:
-                        label.append(0)
+            for attr_name in self.selected_attrs:
+                idx = self.attr2idx[attr_name]
+                label.append(values[idx] == '1')
 
             if (i+1) < 2000:
-                self.test_filenames.append(filename)
-                self.test_labels.append(label)
+                self.test_dataset.append([filename, label])
             else:
-                self.train_filenames.append(filename)
-                self.train_labels.append(label)
+                self.train_dataset.append([filename, label])
+
+        print('Finished preprocessing the CelebA dataset...')
 
     def __getitem__(self, index):
-        if self.mode == 'train':
-            image = Image.open(os.path.join(self.image_path, self.train_filenames[index]))
-            label = self.train_labels[index]
-        elif self.mode in ['test']:
-            image = Image.open(os.path.join(self.image_path, self.test_filenames[index]))
-            label = self.test_labels[index]
-
+        """Return one image and its corresponding attribute label."""
+        dataset = self.train_dataset if self.mode == 'train' else self.test_dataset
+        filename, label = dataset[index]
+        image = Image.open(os.path.join(self.image_dir, filename))
         return self.transform(image), torch.FloatTensor(label)
 
     def __len__(self):
-        return self.num_data
+        """Return the number of images."""
+        return self.num_images
 
 
-def get_loader(image_path, metadata_path, crop_size, image_size, batch_size, dataset='CelebA', mode='train'):
-    """Build and return data loader."""
-
+def get_loader(image_dir, attr_path, selected_attrs, crop_size=178, image_size=128, 
+               batch_size=16, dataset='CelebA', mode='train', num_workers=1):
+    """Build and return a data loader."""
+    transform = []
     if mode == 'train':
-        transform = transforms.Compose([
-            transforms.CenterCrop(crop_size),
-            transforms.Resize(image_size, interpolation=Image.ANTIALIAS),
-            transforms.RandomHorizontalFlip(),
-            transforms.ToTensor(),
-            transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
-    else:
-        transform = transforms.Compose([
-            transforms.CenterCrop(crop_size),
-            transforms.Scale(image_size, interpolation=Image.ANTIALIAS),
-            transforms.ToTensor(),
-            transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+        transform.append(T.RandomHorizontalFlip())
+    transform.append(T.CenterCrop(crop_size))
+    transform.append(T.Resize(image_size))
+    transform.append(T.ToTensor())
+    transform.append(T.Normalize(mean=(0.5, 0.5, 0.5), std=(0.5, 0.5, 0.5)))
+    transform = T.Compose(transform)
 
     if dataset == 'CelebA':
-        dataset = CelebDataset(image_path, metadata_path, transform, mode)
+        dataset = CelebA(image_dir, attr_path, selected_attrs, transform, mode)
     elif dataset == 'RaFD':
-        dataset = ImageFolder(image_path, transform)
+        dataset = ImageFolder(image_dir, transform)
 
-    shuffle = False
-    if mode == 'train':
-        shuffle = True
-
-    data_loader = DataLoader(dataset=dataset,
-                             batch_size=batch_size,
-                             shuffle=shuffle)
+    data_loader = data.DataLoader(dataset=dataset,
+                                  batch_size=batch_size,
+                                  shuffle=(mode=='train'),
+                                  num_workers=num_workers)
     return data_loader
