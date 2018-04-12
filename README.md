@@ -37,10 +37,10 @@ To download the CelebA dataset:
 $ bash download.sh
 ```
 
-To download the RaFD dataset, you must request access to the dataset from [the Radboud Faces Database website](http://www.socsci.ru.nl:8180/RaFD2/RaFD?p=main). Then, you need to create a folder structure as described [here](https://github.com/yunjey/StarGAN-new2/blob/master/jpg/RaFD.md).
+To download the RaFD dataset, you must request access to the dataset from [the Radboud Faces Database website](http://www.socsci.ru.nl:8180/RaFD2/RaFD?p=main). Then, you need to create a folder structure as described [here](https://github.com/yunjey/StarGAN/blob/master/jpg/RaFD.md).
 
 ### 3. Training
-To train StarGAN on CelebA, run the training script below. See [here](https://github.com/yunjey/StarGAN-new2/blob/master/jpg/CelebA.md) for a list of selectable attributes in the CelebA dataset. If you change the `selected_attrs` argument, you should also change the `c_dim` argument accordingly.
+To train StarGAN on CelebA, run the training script below. See [here](https://github.com/yunjey/StarGAN/blob/master/jpg/CelebA.md) for a list of selectable attributes in the CelebA dataset. If you change the `selected_attrs` argument, you should also change the `c_dim` argument accordingly.
 
 ```bash
 $ python main.py --mode='train' --dataset='CelebA' --image_size=128 --c_dim=5 \
@@ -65,7 +65,7 @@ $ python main.py --mode='train' --dataset='Both' --image_size=256 --c_dim=5 --c2
                  --model_save_dir='expr_both/models' --result_dir='expr_both/results'
 ```
 
-To train StarGAN on your own dataset, create a folder structure in the same format as [RaFD](https://github.com/yunjey/StarGAN-new2/blob/master/jpg/RaFD.md) and run the command:
+To train StarGAN on your own dataset, create a folder structure in the same format as [RaFD](https://github.com/yunjey/StarGAN/blob/master/jpg/RaFD.md) and run the command:
 
 ```bash
 $ python main.py --mode='train' --dataset='RaFD' --rafd_crop_size=CROP_SIZE --image_size=IMG_SIZE
