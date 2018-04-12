@@ -54,7 +54,7 @@ To train StarGAN on RaFD:
 ```bash
 $ python main.py --mode train --dataset RaFD --image_size 128 --c_dim 8 \
                  --sample_dir expr_rafd/samples --log_dir expr_rafd/logs \
-                 --model_save_dir expr_rafd/models' --result_dir expr_rafd/results
+                 --model_save_dir expr_rafd/models --result_dir expr_rafd/results
 ```
 
 To train StarGAN on both CelebA and RafD:
@@ -68,7 +68,7 @@ $ python main.py --mode=train --dataset Both --image_size 256 --c_dim 5 --c2_dim
 To train StarGAN on your own dataset, create a folder structure in the same format as [RaFD](https://github.com/yunjey/StarGAN/blob/master/jpg/RaFD.md) and run the command:
 
 ```bash
-$ python main.py --mode train --dataset RaFD --rafd_crop_size CROP_SIZE --image_size IMG_SIZE
+$ python main.py --mode train --dataset RaFD --rafd_crop_size CROP_SIZE --image_size IMG_SIZE \
                  --c_dim LABEL_DIM --rafd_image_dir TRAIN_IMG_DIR \
                  --sample_dir expr_custom/samples --log_dir expr_custom/logs \
                  --model_save_dir expr_custom/models --result_dir expr_custom/results
@@ -106,7 +106,7 @@ $ python main.py --mode test --dataset Both --image_size 256 --c_dim 5 --c2_dim 
 To test StarGAN on your own dataset:
 
 ```bash
-$ python main.py --mode test --dataset RaFD --rafd_crop_size CROP_SIZE --image_size IMG_SIZE
+$ python main.py --mode test --dataset RaFD --rafd_crop_size CROP_SIZE --image_size IMG_SIZE \
                  --c_dim LABEL_DIM --rafd_image_dir TEST_IMG_DIR \
                  --sample_dir expr_custom/samples --log_dir expr_custom/logs \
                  --model_save_dir expr_custom/models --result_dir expr_custom/results
