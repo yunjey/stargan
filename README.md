@@ -122,8 +122,8 @@ To translate images using the pretrained model, run the evaluation script below.
 
 ```bash
 $ python main.py --mode test --dataset CelebA --image_size 256 --c_dim 5 \
-                 --selected_attrs Black_Hair Blond_Hair Brown_Hair Male Young
-                 --model_save_dir='stargan_celeba_256/models'
+                 --selected_attrs Black_Hair Blond_Hair Brown_Hair Male Young \
+                 --model_save_dir='stargan_celeba_256/models' \
                  --result_dir='stargan_celeba_256/results'
 ```
 
