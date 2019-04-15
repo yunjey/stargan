@@ -17,7 +17,7 @@ IEEE Conference on Computer Vision and Pattern Recognition ([CVPR](http://cvpr20
 
 ## Dependencies
 * [Python 3.5+](https://www.continuum.io/downloads)
-* [PyTorch 0.4.0](http://pytorch.org/)
+* [PyTorch 0.4.0+](http://pytorch.org/)
 * [TensorFlow 1.3+](https://www.tensorflow.org/) (optional for tensorboard)
 
 
