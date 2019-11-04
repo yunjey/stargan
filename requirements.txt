@@ -1,0 +1,7 @@
+tensorflow==1.8.0
+numpy==1.15.4
+torch==1.2.0
+pandas==0.22.0
+Pillow==6.2.1
+scikit_learn==0.21.3
+torchvision==0.4.1.post2

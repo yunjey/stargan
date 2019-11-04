@@ -8,6 +8,11 @@ This repository adapts from a PyTorch implementation of [StarGAN](https://arxiv.
 * [PyTorch 0.4.0+](http://pytorch.org/)
 * [TensorFlow 1.3+](https://www.tensorflow.org/) (optional for tensorboard)
 
+Run following to download from `requirements.txt`.
+```bash
+$ pip install -r requirements.txt
+```
+
 ## Data
 We use two datasets in this work: [transient_attributes](http://transattr.cs.brown.edu/) and [world_cities](http://image.ntua.gr/iva/datasets/wc/). For compatability, we convert the datasets to the following format:
 
@@ -58,6 +63,7 @@ Run the following command from the top directory.
 ```bash
 $ python -m code.preprocess_transient
 ```
+
 ### 3. Download [world_cities](http://image.ntua.gr/iva/datasets/wc/) data
 ...
 
