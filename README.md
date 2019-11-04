@@ -11,37 +11,42 @@ This repository adapts from a PyTorch implementation of [StarGAN](https://arxiv.
 ## Data
 We use two datasets in this work: [transient_attributes](http://transattr.cs.brown.edu/) and [world_cities](http://image.ntua.gr/iva/datasets/wc/). For compatability, we convert the datasets to the following format:
 
-data
-└── transient_attributes
-    ├── train
-    |   ├── summer
-    |   |   ├── aaa.jpg  (name doesn't matter)
-    |   |   └── ...
-    |   ├── winter
-    |   |   ├── ccc.jpg
-    |   |   └── ...
-    |   ...
-    |
-    └── test
-        ├── summer
-        |   ├── eee.jpg
-        |   └── ...
-        ├── winter
-        |   ├── ggg.jpg
-        |   └── ...
-        ...
-└── world_cities
-    ├── train
-    |   ├── Amsterdam
-    |   |   ├── aaa.jpg
-    |   |   └── ...
-    |   ...
-    |
-    └── test
-        ├── Amsterdam
-        |   ├── fff.jpg
-        |   └── ...
-        ...
+
+    data
+    └── transient_attributes
+        ├── train
+        |   ├── summer
+        |   |   ├── aaa.jpg  (name doesn't matter)
+        |   |   └── ...
+        |   ├── winter
+        |   |   ├── ccc.jpg
+        |   |   └── ...
+        |   ...
+        |
+        └── test
+            ├── summer
+            |   ├── eee.jpg
+            |   └── ...
+            ├── winter
+            |   ├── ggg.jpg
+            |   └── ...
+            ...
+            data
+    └── world_cities
+        ├── train
+        |   ├── Amsterdam
+        |   |   ├── aaa.jpg
+        |   |   └── ...
+        |   ...
+        |
+        └── test
+            ├── Amsterdam
+            |   ├── eee.jpg
+            |   └── ...
+            ...
+
+
+
 
 To download the data and convert it to the right format, do the following:
 
