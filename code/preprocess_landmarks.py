@@ -1,10 +1,9 @@
+from code import LANDMARK_DATA
 import pandas as pd
 import os
 import urllib
 from sklearn.model_selection import train_test_split
 
-DATA_DIR = '../data'
-LANDMARK_DATASET = os.path.join(DATA_DIR, 'landmark_dataset')
 
 '''
 Get the landmark name corresponding to the landmark id
@@ -16,7 +15,7 @@ Return:
 def get_landmark_ids_with_name(ids):
 	landmarks_ids = {}
 
-	id_to_name_df = pd.read_csv(os.path.join(DATA_DIR,'train_label_to_category.csv'))
+	id_to_name_df = pd.read_csv(os.path.join(LANDMARK_DATA,'train_label_to_category.csv'))
 	for l_id in ids:
 		landmark_url = id_to_name_df[(id_to_name_df.landmark_id==l_id)].category
 		for index,value in landmark_url.items():
@@ -30,11 +29,10 @@ Download images using the urls given in the train.csv file
 
 Return: 
 	void
-
 '''
 def download_images():
 	#reading the csv having the landmark_id to landmark image url mapping
-	df = pd.read_csv(os.path.join(DATA_DIR, 'train.csv'))
+	df = pd.read_csv(os.path.join(LANDMARK_DATA, 'train.csv'))
 
 	#getting the 20 landmark ids which have the maximum number of images
 	df1 = df.groupby(['landmark_id'], sort=False).size()
@@ -48,8 +46,8 @@ def download_images():
 	landmarks_ids = get_landmark_ids_with_name(ids_list)
 	
 	#create test and train directories
-	train_dir = os.path.join(LANDMARK_DATASET ,'train')
-	test_dir = os.path.join(LANDMARK_DATASET, 'test')
+	train_dir = os.path.join(LANDMARK_DATA ,'train')
+	test_dir = os.path.join(LANDMARK_DATA, 'test')
 
 	if not os.path.exists(train_dir):
 		os.mkdir(train_dir)
@@ -102,6 +100,6 @@ def download_images():
 
 if __name__ == '__main__':
 
-	if not os.path.exists(LANDMARK_DATASET):
-		os.mkdir(LANDMARK_DATASET)
+	if not os.path.exists(LANDMARK_DATA):
+		os.mkdir(LANDMARK_DATA)
 	download_images()
