@@ -62,7 +62,7 @@ def download_images():
 			landmark_id = landmarks_ids[landmark]
 
 			#selecting 400 images for each landmark
-			landmark_df = df[(df.landmark_id==landmark_id)][0:400]
+			landmark_df = df[(df.landmark_id==landmark_id)]#[0:400]
 			landmark_train_dir = os.path.join(train_dir, landmark)
 			landmark_test_dir = os.path.join(test_dir, landmark)
 
