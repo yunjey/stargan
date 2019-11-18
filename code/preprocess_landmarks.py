@@ -1,9 +1,10 @@
-from code import LANDMARK_DATA
+# from code import LANDMARK_DATA
 import pandas as pd
 import os
 import urllib
 from sklearn.model_selection import train_test_split
 
+LANDMARK_DATA = os.path.join('./data','landmarks')
 
 '''
 Get the landmark name corresponding to the landmark id
