@@ -14,9 +14,9 @@ echo "SLURM_JOBID: " $SLURM_JOBID
 
 echo "Start running experiments"
 
-source ~/.bashrc ; source activate tf
+# source ~/.bashrc #; source activate tf
 
-python code/main.py --mode train --dataset RaFD --c_dim 20 --rafd_image_dir data/landmarks/train --sample_dir stargan_landmarks/samples --log_dir stargan_landmarks/logs --model_save_dir stargan_landmarks/models --result_dir stargan_landmarks/results
+python3 code/main.py --mode train --dataset RaFD --c_dim 20 --rafd_image_dir data/landmarks/train --sample_dir stargan_landmarks/samples --log_dir stargan_landmarks/logs --model_save_dir stargan_landmarks/models --result_dir stargan_landmarks/results
 
 echo "Done"
 
