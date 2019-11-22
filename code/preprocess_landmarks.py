@@ -36,13 +36,16 @@ def download_images():
 	df = pd.read_csv(os.path.join(LANDMARK_DATA, 'train.csv'))
 
 	#getting the 20 landmark ids which have the maximum number of images
-	df1 = df.groupby(['landmark_id'], sort=False).size()
-	df1 = df1.sort_values(ascending=False)
+	# df1 = df.groupby(['landmark_id'], sort=False).size()
+	# df1 = df1.sort_values(ascending=False)
 
-	df1 = df1[1:21] # not selecting index 0 since it is not for a particular landmark
-	ids_list = []
-	for index,value in df1.items():
-		ids_list.append(index)
+	# df1 = df1[1:21] # not selecting index 0 since it is not for a particular landmark
+	# ids_list = []
+	# for index,value in df1.items():
+	# 	ids_list.append(index)
+
+	with open(os.path.join(LANDMARK_DATA,'train_labels.txt'), 'r') as f:
+		ids_list = [int(x) for x in f]
 
 	landmarks_ids = get_landmark_ids_with_name(ids_list)
 	
@@ -61,8 +64,8 @@ def download_images():
 			print(landmark)
 			landmark_id = landmarks_ids[landmark]
 
-			#selecting 400 images for each landmark
-			landmark_df = df[(df.landmark_id==landmark_id)]#[0:400]
+			#selecting 1000 images for each landmark
+			landmark_df = df[(df.landmark_id==landmark_id)][0:1000]
 			landmark_train_dir = os.path.join(train_dir, landmark)
 			landmark_test_dir = os.path.join(test_dir, landmark)
 
