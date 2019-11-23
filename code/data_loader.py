@@ -75,7 +75,7 @@ def get_loader(image_dir, attr_path, selected_attrs, crop_size=178, image_size=1
     if mode == 'train':
         transform.append(T.RandomHorizontalFlip())
     # transform.append(T.CenterCrop(crop_size))
-    transform.append(T.Resize(image_size))
+    transform.append(T.Resize(image_size, image_size))
     transform.append(T.ToTensor())
     transform.append(T.Normalize(mean=(0.5, 0.5, 0.5), std=(0.5, 0.5, 0.5)))
     transform = T.Compose(transform)
