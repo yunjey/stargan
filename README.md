@@ -110,7 +110,7 @@ $ python main.py --mode test --dataset CelebA --image_size 128 --c_dim 5 \
 ```
 
 ## Citation
-If you find this work is useful for your research, please consider citing our [paper](https://arxiv.org/abs/1711.09020):
+If you find this work useful for your research, please cite our [paper](https://arxiv.org/abs/1711.09020):
 ```
 @inproceedings{choi2018stargan,
 author={Yunjey Choi and Minje Choi and Munyoung Kim and Jung-Woo Ha and Sunghun Kim and Jaegul Choo},
