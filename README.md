@@ -94,7 +94,7 @@ python main.py --mode test --dataset RaFD --rafd_crop_size CROP_SIZE --image_siz
 
 
 ## Using pre-trained networks
-To download a pre-trained model checkpoint, run the script below. The pre-trained model checkpoint will be downloaded and saved into `./stargan_celeba_256/models` directory.
+To download a pre-trained model checkpoint, run the script below. The pre-trained model checkpoint will be downloaded and saved into `./stargan_celeba_128/models` directory.
 
 ```bash
 $ bash download.sh pretrained-celeba-128x128
