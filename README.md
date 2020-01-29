@@ -1,6 +1,6 @@
 ## StarGAN - Official PyTorch Implementation
 
-**\*\*\*\*\* New Dec 4th, 2019: StarGAN v2 is available at https://github.com/clovaai/stargan-v2 \*\*\*\*\***
+**\*\*\*\*\* New: StarGAN v2 will be available soon at https://github.com/clovaai/stargan-v2 \*\*\*\*\***
 
 <p align="center"><img width="100%" src="jpg/main.jpg" /></p>
 
