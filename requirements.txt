@@ -1,0 +1,5 @@
+pip install torch==0.4.1 
+pip install torchvision==0.2.2
+pip install numpy==1.16.4
+pip install tensorflow==1.14.0
+pip install Pillow==6.2.2
