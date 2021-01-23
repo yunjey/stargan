@@ -54,12 +54,13 @@ def main(config):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
-    # 1で1.5分かかる
     # training_and_test_size = 200000
     # model_save_step = 10000
+    # batch_size = 16
 
-    training_and_test_size = 30
-    model_save_step = 30
+    training_and_test_size = 3000
+    model_save_step = 3000
+    batch_size = 6
 
     # Model configuration.
     parser.add_argument('--c_dim', type=int, default=5, help='dimension of domain labels (1st dataset)')
@@ -77,7 +78,7 @@ if __name__ == '__main__':
 
     # Training configuration.
     parser.add_argument('--dataset', type=str, default='CelebA', choices=['CelebA', 'RaFD', 'Both'])
-    parser.add_argument('--batch_size', type=int, default=16, help='mini-batch size')
+    parser.add_argument('--batch_size', type=int, default=batch_size, help='mini-batch size')
     parser.add_argument('--num_iters', type=int, default=training_and_test_size, help='number of total iterations for training D')
     parser.add_argument('--num_iters_decay', type=int, default=100000, help='number of iterations for decaying lr')
     parser.add_argument('--g_lr', type=float, default=0.0001, help='learning rate for G')

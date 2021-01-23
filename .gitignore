@@ -1,1 +1,9 @@
 __pycache__
+manga/logs/*
+!manga/logs/.gitkeep
+manga/models/*
+!manga/models/.gitkeep
+manga/results/*
+!manga/results/.gitkeep
+manga/samples/*
+!manga/samples/.gitkeep
